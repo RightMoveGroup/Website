@@ -16,7 +16,7 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            background: #ffffff;
+            background: #4a7c59;
         }
 
         body {
@@ -24,26 +24,102 @@
         }
 
         :root {
-            --design-width: 1440;
-            --page-scale: 1;
+            --page-zoom: 1;
         }
 
-        #page-scale-container {
+        #page-shell {
             width: 100%;
-            position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            background: #ffffff;
         }
 
         #page-desktop {
-            width: calc(var(--design-width) * 1px);
-            transform: scale(var(--page-scale));
+            width: 1440px;
+            margin: 0 auto;
+            padding: 0;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             transform-origin: top left;
-            will-change: transform;
         }
 
-        #page-desktop,
-        #page-desktop * {
-            box-sizing: border-box;
+        @media (max-width: 1440px) {
+            :root {
+                --page-zoom: calc(100vw / 1440px);
+            }
+
+            #page-desktop {
+                zoom: var(--page-zoom);
+                min-height: calc(100vh / var(--page-zoom));
+            }
+        }
+
+        .page-main {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-section {
+            height: 600px;
+            flex-shrink: 0;
+        }
+
+        .about-main-section {
+            flex: 1 0 auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 70px 24px 90px;
+            background: #ffffff;
+        }
+
+        .about-main-inner {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content-stack {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 52px;
+            min-height: 560px;
+        }
+
+        .about-circle-top {
+            position: absolute;
+            top: -250px;
+            right: -120px;
+            width: 760px;
+            height: 760px;
+            border-radius: 9999px;
+            border: 150px solid #f1f1f3;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .about-circle-bottom {
+            position: absolute;
+            bottom: -260px;
+            left: -150px;
+            width: 760px;
+            height: 760px;
+            border-radius: 9999px;
+            border: 150px solid #f1f1f3;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .page-footer {
+            flex-shrink: 0;
         }
 
         .fade-in,
@@ -90,110 +166,132 @@
         .nav-link:hover {
             color: #86b691;
         }
+
+        .about-block h2 {
+            margin-bottom: 10px;
+        }
+
+        .about-block p {
+            max-width: 760px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
 
-<div id="page-scale-container">
+<div id="page-shell">
     <div id="page-desktop">
 
-        <!-- HERO -->
-        <section class="relative h-[600px] w-full">
-            <div class="absolute inset-0 z-0 h-full">
-                <img src="assets/14.png" alt="Team Meeting" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black/75"></div>
-            </div>
-
-            <nav class="absolute top-12 right-24 z-50 flex justify-end">
-                <div class="flex flex-row items-center space-x-10 text-white">
-                    <a href="index.html" class="nav-link text-lg fade-in stagger-1">Home</a>
-                    <a href="about.html" class="nav-link text-lg whitespace-nowrap fade-in stagger-2">About Us</a>
-                    <a href="clients.html" class="nav-link text-lg whitespace-nowrap fade-in stagger-3">Clients & Industries</a>
-                    <a href="contacts.html" class="nav-link text-lg fade-in stagger-4">Contact</a>
-                </div>
-            </nav>
-
-            <div class="relative z-10 h-full px-24 pt-16 pb-32">
-                <div class="absolute top-[220px] left-[170px] max-w-2xl">
-                    <h2 class="text-5xl font-bold text-white mb-6 tracking-wide fade-in stagger-5">
-                        About Us
-                    </h2>
-
-                    <p class="text-lg text-white font-normal leading-relaxed tracking-wide fade-in stagger-6">
-                        At <span class="font-bold">Right Move Group</span>, we believe accounting is about more than just numbers—it’s about your peace of mind. We are a team of dedicated professionals committed to simplifying the complexities of tax and finance for individuals and growing businesses. By combining modern technology with a personal, proactive approach, we help you navigate your financial journey with clarity and confidence.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTENT -->
-        <section class="relative py-40 bg-white overflow-hidden font-sans fade-in stagger-7">
-            <div class="absolute -top-[400px] -right-8 w-[800px] h-[800px] bg-transparent rounded-full border-[250px] border-gray-100 z-0"></div>
-            <div class="absolute -bottom-[400px] -left-2 w-[800px] h-[800px] bg-transparent rounded-full border-[250px] border-gray-100 z-0"></div>
-
-            <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-16">
-                <div class="space-y-3 fade-in-left stagger-8">
-                    <h2 class="text-4xl font-bold text-[#2d7a2d]">Our Mission</h2>
-                    <p class="text-lg text-gray-700">To be your trusted partner in achieving long-term stability and success.</p>
+        <main class="page-main">
+            <!-- HERO -->
+            <section class="hero-section relative w-full">
+                <div class="absolute inset-0 z-0 h-full">
+                    <img src="assets/14.png" alt="Team Meeting" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/75"></div>
                 </div>
 
-                <div class="space-y-3 fade-in-right stagger-9">
-                    <h2 class="text-4xl font-bold text-[#2d7a2d]">Our Approach</h2>
-                    <p class="text-lg text-gray-700">We focus on tailored strategies, not one-size-fits-all solutions.</p>
-                </div>
+                <nav class="absolute top-12 right-24 z-50 flex justify-end">
+                    <div class="flex flex-row items-center space-x-10 text-white">
+                        <a href="index.html" class="nav-link text-lg fade-in stagger-1">Home</a>
+                        <a href="about.html" class="nav-link text-lg whitespace-nowrap fade-in stagger-2">About Us</a>
+                        <a href="clients.html" class="nav-link text-lg whitespace-nowrap fade-in stagger-3">Clients & Industries</a>
+                        <a href="contacts.html" class="nav-link text-lg fade-in stagger-4">Contact</a>
+                    </div>
+                </nav>
 
-                <div class="space-y-3 fade-in-left stagger-10">
-                    <h2 class="text-4xl font-bold text-[#2d7a2d]">Our Values</h2>
-                    <p class="text-lg text-gray-700">Integrity, precision, and a commitment to your growth.</p>
-                </div>
+                <div class="relative z-10 h-full px-24 pt-16 pb-32">
+                    <div class="absolute top-[220px] left-[170px] max-w-2xl">
+                        <h1 class="text-5xl font-bold text-white mb-6 tracking-wide fade-in stagger-5">
+                            About Us
+                        </h1>
 
-                <div class="space-y-3 fade-in-right stagger-11">
-                    <h2 class="text-4xl font-bold text-[#2d7a2d]">Our Goal</h2>
-                    <p class="text-lg text-gray-700">To save you time and reduce the stress of financial management.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- FOOTER -->
-        <footer class="bg-[#86b691] pt-16 pb-12 px-10 text-white w-full fade-in stagger-12">
-            <div class="max-w-7xl mx-auto grid grid-cols-4 gap-12 mb-12 text-left">
-                <div class="flex items-center justify-start">
-                    <div class="w-36 h-36 rounded-lg flex items-center justify-center">
-                        <img class="w-full h-full" src="assets/logo.png" alt="Logo">
+                        <p class="text-lg text-white font-normal leading-relaxed tracking-wide fade-in stagger-6">
+                            At <span class="font-bold">Right Move Group</span>, we believe accounting is about more than just numbers—it’s about your peace of mind. We are a team of dedicated professionals committed to simplifying the complexities of tax and finance for individuals and growing businesses. By combining modern technology with a personal, proactive approach, we help you navigate your financial journey with clarity and confidence.
+                        </p>
                     </div>
                 </div>
+            </section>
 
-                <div>
-                    <h4 class="font-bold text-xl mb-6">Quick Links</h4>
-                    <ul class="space-y-3 opacity-90">
-                        <li><a href="index.html" class="hover:underline">Home</a></li>
-                        <li><a href="about.html" class="hover:underline">About Us</a></li>
-                        <li><a href="clients.html" class="hover:underline">Clients & Industries</a></li>
-                        <li><a href="contacts.html" class="hover:underline">Contact</a></li>
-                    </ul>
+            <!-- MIDDLE -->
+            <section class="about-main-section fade-in stagger-7">
+                <div class="about-circle-top"></div>
+                <div class="about-circle-bottom"></div>
+
+                <div class="about-main-inner">
+                    <div class="about-content-stack">
+                        <div class="about-block fade-in-left stagger-8">
+                            <h2 class="text-4xl font-bold text-[#2d7a2d]">Our Mission</h2>
+                            <p class="text-lg text-gray-700">
+                                To be your trusted partner in achieving long-term stability and success.
+                            </p>
+                        </div>
+
+                        <div class="about-block fade-in-right stagger-9">
+                            <h2 class="text-4xl font-bold text-[#2d7a2d]">Our Approach</h2>
+                            <p class="text-lg text-gray-700">
+                                We focus on tailored strategies, not one-size-fits-all solutions.
+                            </p>
+                        </div>
+
+                        <div class="about-block fade-in-left stagger-10">
+                            <h2 class="text-4xl font-bold text-[#2d7a2d]">Our Values</h2>
+                            <p class="text-lg text-gray-700">
+                                Integrity, precision, and a commitment to your growth.
+                            </p>
+                        </div>
+
+                        <div class="about-block fade-in-right stagger-11">
+                            <h2 class="text-4xl font-bold text-[#2d7a2d]">Our Goal</h2>
+                            <p class="text-lg text-gray-700">
+                                To save you time and reduce the stress of financial management.
+                            </p>
+                        </div>
+                    </div>
                 </div>
+            </section>
+        </main>
 
-                <div>
-                    <h4 class="font-bold text-xl mb-6">Important Links</h4>
-                    <ul class="space-y-3 opacity-90">
-                        <li><a href="#" class="hover:underline">Terms and Conditions</a></li>
-                        <li><a href="#" class="hover:underline">Legal</a></li>
-                        <li><a href="#" class="hover:underline">Business</a></li>
-                        <li><a href="#" class="hover:underline">Partners</a></li>
-                    </ul>
+        <div class="page-footer">
+            <!-- FOOTER -->
+            <footer class="bg-[#86b691] pt-16 pb-12 px-10 text-white w-full fade-in stagger-12">
+                <div class="max-w-7xl mx-auto grid grid-cols-4 gap-12 mb-12 text-left">
+                    <div class="flex items-center justify-start">
+                        <div class="w-36 h-36 rounded-lg flex items-center justify-center">
+                            <img class="w-full h-full" src="assets/logo.png" alt="Logo">
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-xl mb-6">Quick Links</h4>
+                        <ul class="space-y-3 opacity-90">
+                            <li><a href="index.html" class="hover:underline">Home</a></li>
+                            <li><a href="about.html" class="hover:underline">About Us</a></li>
+                            <li><a href="clients.html" class="hover:underline">Clients & Industries</a></li>
+                            <li><a href="contacts.html" class="hover:underline">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-xl mb-6">Important Links</h4>
+                        <ul class="space-y-3 opacity-90">
+                            <li><a href="#" class="hover:underline">Terms and Conditions</a></li>
+                            <li><a href="#" class="hover:underline">Legal</a></li>
+
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-xl mb-6">Let's Connect!</h4>
+                        <p class="opacity-90">Connect with entrepreneurs, build your network, make great business.</p>
+                    </div>
                 </div>
+            </footer>
 
-                <div>
-                    <h4 class="font-bold text-xl mb-6">Let's Connect!</h4>
-                    <p class="opacity-90">Connect with entrepreneurs, build your network, make great business.</p>
+            <div class="bg-[#4a7c59] py-8 px-10 text-white w-full">
+                <div class="max-w-7xl mx-auto flex justify-between items-center text-sm opacity-90">
+                    <p>Copyright 2026 Right Move Group</p>
+                    <p>Powered by Right Move Group</p>
                 </div>
-            </div>
-        </footer>
-
-        <div class="bg-[#4a7c59] py-8 px-10 text-white w-full">
-            <div class="max-w-7xl mx-auto flex justify-between items-center text-sm opacity-90">
-                <p>Copyright 2026 Right Move Group</p>
-                <p>Powered by Right Move Group</p>
             </div>
         </div>
 
@@ -201,25 +299,6 @@
 </div>
 
 <script>
-    function updatePageScale() {
-        const designWidth = 1440;
-        const container = document.getElementById('page-scale-container');
-        const desktop = document.getElementById('page-desktop');
-
-        const viewportWidth = window.innerWidth;
-        const scale = Math.min(viewportWidth / designWidth, 1);
-
-        document.documentElement.style.setProperty('--page-scale', scale);
-
-        requestAnimationFrame(() => {
-            const scaledHeight = desktop.offsetHeight * scale;
-            container.style.height = scaledHeight + 'px';
-        });
-    }
-
-    window.addEventListener('load', updatePageScale);
-    window.addEventListener('resize', updatePageScale);
-
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -236,7 +315,6 @@
     document.addEventListener('DOMContentLoaded', () => {
         const fadeElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
         fadeElements.forEach(element => observer.observe(element));
-        updatePageScale();
     });
 </script>
 
