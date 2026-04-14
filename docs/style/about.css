@@ -22,13 +22,14 @@ html, body {
 }
 
 .about-main-section {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    padding: 70px 24px 90px;
+    padding: 200px;
+    min-height: 650px;
     background: #ffffff;
 }
 
@@ -39,6 +40,9 @@ html, body {
     max-width: 980px;
     margin: 0 auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .about-content-stack {
@@ -46,7 +50,6 @@ html, body {
     flex-direction: column;
     justify-content: center;
     gap: 52px;
-    min-height: 560px;
 }
 
 .about-circle-top {
