@@ -10,218 +10,347 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <title>Right Move Group</title>
-    <style>
 
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        :root {
+            --design-width: 1440;
+            --page-scale: 1;
+        }
+
+        /* Outer box takes the scaled height */
+        #page-scale-container {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Actual desktop canvas */
+        #page-desktop {
+            width: calc(var(--design-width) * 1px);
+            transform: scale(var(--page-scale));
+            transform-origin: top left;
+            will-change: transform;
+        }
+
+        /* Optional: avoid weird text rendering on some browsers */
+        #page-desktop,
+        #page-desktop * {
+            box-sizing: border-box;
+        }
+
+        /* Fade-in animation styles */
+        .fade-in,
+        .fade-in-left,
+        .fade-in-right {
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .fade-in {
+            transform: translateY(30px);
+        }
+
+        .fade-in-left {
+            transform: translateX(-40px);
+        }
+
+        .fade-in-right {
+            transform: translateX(40px);
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        .stagger-1 { transition-delay: 0.05s; }
+        .stagger-2 { transition-delay: 0.10s; }
+        .stagger-3 { transition-delay: 0.15s; }
+        .stagger-4 { transition-delay: 0.20s; }
+        .stagger-5 { transition-delay: 0.25s; }
+        .stagger-6 { transition-delay: 0.30s; }
+        .stagger-7 { transition-delay: 0.35s; }
+        .stagger-8 { transition-delay: 0.10s; }
+        .stagger-9 { transition-delay: 0.15s; }
+        .stagger-10 { transition-delay: 0.20s; }
+        .stagger-11 { transition-delay: 0.25s; }
+        .stagger-12 { transition-delay: 0.10s; }
+        .stagger-13 { transition-delay: 0.15s; }
+        .stagger-14 { transition-delay: 0.20s; }
+        .stagger-15 { transition-delay: 0.25s; }
+        .stagger-16 { transition-delay: 0.30s; }
+        .stagger-17 { transition-delay: 0.35s; }
+        .stagger-18 { transition-delay: 0.40s; }
+        .stagger-19 { transition-delay: 0.45s; }
+        .stagger-20 { transition-delay: 0.10s; }
+
+        /* Keep hover elegant */
+        .service-card,
+        .industry-card {
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .service-card:hover,
+        .industry-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .industry-card img {
+            transition: transform 0.5s ease;
+        }
+
+        .industry-card:hover img {
+            transform: scale(1.08);
+        }
     </style>
 </head>
-<body class="bg-white font-opensans text-gray-800">
+<body class="bg-white text-gray-800">
 
-<section class="relative min-h-full lg:h-[550px] w-full flex flex-col font-opensans">
-    <img src="assets/1.png" alt="" class="absolute inset-0 w-full h-full object-cover">
-    <div class="absolute inset-0 bg-white/80 md:bg-white/70"></div>
+<div id="page-scale-container">
+    <div id="page-desktop">
 
-    <div class="relative z-10 max-w-7xl mx-auto w-full flex-1 flex flex-col">
-        <nav class="absolute top-12 right-6 md:right-12 lg:right-24 z-50 flex justify-end">
-            <button id="mobile-menu-btn" class="md:hidden text-green-800 text-3xl focus:outline-none z-50">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+        <!-- HERO -->
+        <section class="relative h-[550px] w-full flex flex-col">
+            <img src="assets/1.png" alt="" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-white/75"></div>
 
-            <div id="nav-links" class="hidden absolute top-12 right-0 bg-white shadow-lg p-6 rounded min-w-[200px] flex-col space-y-4 md:static md:bg-transparent md:shadow-none md:p-0 md:min-w-0 md:flex md:flex-row md:items-center md:space-y-0 md:space-x-10 text-gray-800 transition-all">
-                <a href="index.html" class=" text-lg hover:text-green-700 transition fade-in stagger-1">Home</a>
-                <a href="about.html" class=" text-lg hover:text-green-700 transition whitespace-nowrap fade-in stagger-2">About Us</a>
-                <a href="clients.html" class=" text-lg hover:text-green-700 transition whitespace-nowrap fade-in stagger-3">Clients & Industries</a>
-                <a href="contacts.html" class="text-lg hover:text-green-700 transition fade-in stagger-4">Contact</a>
+            <div class="relative z-10 w-full h-full px-24">
+                <nav class="absolute top-12 right-24 z-50 flex justify-end">
+                    <div class="flex flex-row items-center space-x-10 text-gray-800">
+                        <a href="index.html" class="text-lg hover:text-green-700 transition fade-in stagger-1">Home</a>
+                        <a href="about.html" class="text-lg hover:text-green-700 transition whitespace-nowrap fade-in stagger-2">About Us</a>
+                        <a href="clients.html" class="text-lg hover:text-green-700 transition whitespace-nowrap fade-in stagger-3">Clients & Industries</a>
+                        <a href="contacts.html" class="text-lg hover:text-green-700 transition fade-in stagger-4">Contact</a>
+                    </div>
+                </nav>
+
+                <header class="h-full flex flex-col pt-12 pb-12">
+                    <div class="flex items-center gap-4 mb-28">
+                        <img src="assets/logo.png" class="h-36 mix-blend-multiply object-contain" alt="logo">
+                        <span class="font-bold tracking-wide text-green-700 text-3xl">RIGHT MOVE GROUP</span>
+                    </div>
+
+                    <div class="max-w-2xl space-y-5">
+                        <h1 class="text-3xl font-bold leading-tight text-green-700 fade-in stagger-5">
+                            Consulting and Bookkeeping
+                        </h1>
+                        <p class="text-[20px] font-normal text-gray-800 fade-in stagger-6">
+                            We Provide Financial Roadmap For Your Business Growth
+                        </p>
+                        <button class="mt-6 bg-green-700 text-white px-14 py-2.5 text-sm font-bold tracking-widest hover:bg-green-800 border-2 border-transparent hover:border-green-700 duration-300 transition inline-block whitespace-nowrap fade-in stagger-7">
+                            LEARN MORE
+                        </button>
+                    </div>
+                </header>
             </div>
-        </nav>
+        </section>
 
-        <header class="px-6 md:px-12 lg:px-24 flex-1 flex flex-col pt-12 pb-12">
-            <div class="flex items-center gap-4 mb-20 md:mb-28">
-                <img src="assets/logo.png" class="h-16 md:h-36 mix-blend-multiply object-contain" alt="logo">
-                <span class="font-bold tracking-wide text-green-700 text-3xl ">RIGHT MOVE GROUP</span>
+        <!-- SERVICES -->
+        <section class="py-36 bg-[#f3f3f3] flex flex-col items-center">
+            <div class="text-center max-w-3xl mb-10 leading-relaxed">
+                <h2 class="text-5xl mb-10 font-bold font-sans fade-in stagger-8">Helping Your Business Grow</h2>
+                <p class="text-md mb-6 fade-in stagger-9">
+                    Reliable accounting, bookkeeping, and tax services tailored for small and growing businesses.
+                </p>
+                <p class="text-base leading-7 fade-in stagger-10">
+                    We help you make informed financial decisions with confidence.
+                </p>
             </div>
 
-            <div class="max-w-2xl space-y-4 md:space-y-5">
-                <h1 class="text-3xl md:text-2xl lg:text-3xl font-bold leading-tight text-green-700 fade-in stagger-5">Consulting and Bookkeeping</h1>
-                <p class="text-base md:text-[20px] font-normal text-gray-800 fade-in stagger-6">We Provide Financial Roadmap For Your Business Growth</p>
-                <button class="mt-6 bg-green-700 text-white px-8 md:px-14 py-2.5 text-sm font-bold tracking-widest hover:bg-green-800 border-2 border-transparent hover:border-green-700 duration-300 transition inline-block whitespace-nowrap fade-in stagger-7">
-    LEARN MORE
-</button>
+            <div class="bg-[#2d7a2d] text-white px-6 py-2 rounded-sm font-bold text-sm tracking-widest mb-16 uppercase text-center fade-in stagger-11">
+                SERVICES OFFERED
             </div>
-        </header>
-    </div>
-</section>
 
-<!-- Services Section -->
-<section class="py-36 pb-36 bg-[#f3f3f3] flex flex-col font-opensans items-center">
-    <div class="text-center max-w-3xl mb-10 leading-relaxed">
-        <h2 class="text-4xl md:text-5xl mb-10 font-bold font-sans fade-in stagger-8">Helping Your Business Grow</h2>
-        <p class="text-base md:text-md mb-6 fade-in stagger-9">Reliable accounting, bookkeeping, and tax services tailored for small and growing businesses.</p>
-        <p class="text-base leading-7 fade-in stagger-10">We help you make informed financial decisions with confidence.</p>
-    </div>
+            <div class="grid grid-cols-4 gap-x-2 gap-y-10 max-w-7xl w-full mx-auto px-4">
+                <div class="service-card bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl cursor-pointer border border-gray-100 fade-in-left stagger-12">
+                    <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-calculator text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Accounting</h3>
+                    <p class="text-[15px] leading-tight text-gray-600">Accurate financial records for informed business decisions.</p>
+                </div>
 
-    <div class="bg-[#2d7a2d] text-white px-6 py-2 rounded-sm font-bold text-sm tracking-widest mb-12 md:mb-16 uppercase text-center fade-in stagger-11">SERVICES OFFERED</div>
+                <div class="service-card bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl cursor-pointer border border-gray-100 fade-in-left stagger-13">
+                    <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-book text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Bookkeeping</h3>
+                    <p class="text-[15px] leading-tight text-gray-600">Organized, up-to-date books providing a clear view of finances.</p>
+                </div>
 
-   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-10 max-w-7xl w-full mx-auto px-4">
-    
-    <div class="bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 transition-all cursor-pointer border border-gray-100 fade-in-left stagger-12">
-        <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
-            <i class="fa-solid fa-calculator text-2xl"></i>
+                <div class="service-card bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl cursor-pointer border border-gray-100 fade-in-left stagger-14">
+                    <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-users-gear text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Payroll</h3>
+                    <p class="text-[15px] leading-tight text-gray-600">Smooth and compliant payroll processing for teams.</p>
+                </div>
+
+                <div class="service-card bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl cursor-pointer border border-gray-100 fade-in-left stagger-15">
+                    <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-building-columns text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Corporate Tax</h3>
+                    <p class="text-[15px] leading-tight text-gray-600">Expert corporate tax guidance to minimize liabilities.</p>
+                </div>
+
+                <div class="service-card bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl cursor-pointer border border-gray-100 fade-in-right stagger-16">
+                    <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-briefcase text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Entity Setup</h3>
+                    <p class="text-[15px] leading-tight text-gray-600">Setting up the right business structure for success.</p>
+                </div>
+
+                <div class="service-card bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl cursor-pointer border border-gray-100 fade-in-right stagger-17">
+                    <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-gears text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-[#1e264f]">System Setup</h3>
+                    <p class="text-[15px] leading-tight text-gray-600">Tailored accounting systems streamlining workflow.</p>
+                </div>
+
+                <div class="service-card bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl cursor-pointer border border-gray-100 fade-in-right stagger-18">
+                    <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-file-invoice-dollar text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Personal Tax</h3>
+                    <p class="text-[15px] leading-tight text-gray-600">Reliable personal tax filing ensuring accuracy.</p>
+                </div>
+
+                <div class="service-card bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl cursor-pointer border border-gray-100 fade-in-right stagger-19">
+                    <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-percent text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-[#1e264f]">GST/HST Filing</h3>
+                    <p class="text-[15px] leading-tight text-gray-600">Timely filing maintaining regulatory compliance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLIENTS -->
+        <section class="bg-[#f9f7f0] w-full pt-24 pb-40 fade-in stagger-20">
+            <div class="max-w-[1400px] mx-auto px-16">
+                <h2 class="text-6xl font-serif text-[#2d7a2d] mb-28 text-left leading-tight">
+                    Clients & <br> Industries
+                </h2>
+
+                <div class="ml-36 flex justify-center">
+                    <div class="grid grid-cols-4 w-full max-w-[1300px]">
+                        <div class="industry-card bg-[#86b691] px-4 pb-3 pt-8 flex flex-col items-center">
+                            <h3 class="text-white font-serif text-start h-12 text-xl flex items-center w-full">Cleaning Companies</h3>
+                            <div class="w-full h-[176px] pt-4 overflow-hidden shadow-lg">
+                                <img src="assets/2.png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <div class="industry-card bg-[#b2d3ba] px-4 pb-3 pt-8 flex flex-col items-center">
+                            <h3 class="text-[#2d7a2d] font-serif text-start leading-tight text-xl h-12 flex items-start w-full">
+                                Property Management <br> Companies
+                            </h3>
+                            <div class="w-full h-[176px] pt-4 overflow-hidden shadow-lg">
+                                <img src="assets/4.png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <div class="industry-card bg-[#f1fcf1] px-4 pb-3 pt-8 flex flex-col items-center border-x border-gray-100">
+                            <h3 class="text-[#1e264f] font-serif text-start text-xl h-12 flex items-center w-full">Real Estate Investors</h3>
+                            <div class="w-full h-[176px] pt-4 overflow-hidden shadow-lg">
+                                <img src="assets/5.png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <div class="industry-card bg-white px-4 pb-3 pt-8 flex flex-col items-center">
+                            <h3 class="text-[#1e264f] font-serif text-xl text-start leading-tight h-12 flex items-center w-full">
+                                Other Businesses Across <br> Various Industries
+                            </h3>
+                            <div class="w-full h-[176px] pt-4 overflow-hidden shadow-lg">
+                                <img src="assets/6.png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="bg-[#86b691] pt-16 pb-12 px-10 text-white w-full fade-in">
+            <div class="max-w-7xl mx-auto grid grid-cols-4 gap-12 mb-12 text-left">
+                <div class="flex items-center justify-start">
+                    <div class="w-36 h-36 rounded-lg flex items-center justify-center">
+                        <img class="w-full h-full" src="assets/logo.png" alt="Logo">
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xl mb-6">Quick Links</h4>
+                    <ul class="space-y-3 opacity-90">
+                        <li><a href="index.html" class="hover:underline">Home</a></li>
+                        <li><a href="about.html" class="hover:underline">About Us</a></li>
+                        <li><a href="clients.html" class="hover:underline">Clients & Industries</a></li>
+                        <li><a href="contacts.html" class="hover:underline">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xl mb-6">Important Links</h4>
+                    <ul class="space-y-3 opacity-90">
+                        <li><a href="#" class="hover:underline">Terms and Conditions</a></li>
+                        <li><a href="#" class="hover:underline">Legal</a></li>
+                        <li><a href="#" class="hover:underline">Business</a></li>
+                        <li><a href="#" class="hover:underline">Partners</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xl mb-6">Let's Connect!</h4>
+                    <p class="opacity-90">
+                        Connect with entrepreneurs, build your network, make great business.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <div class="bg-[#4a7c59] py-8 px-10 text-white w-full">
+            <div class="max-w-7xl mx-auto flex justify-between items-center text-sm opacity-90">
+                <p>Copyright © 2026 Right Move Group</p>
+                <p>Powered by Right Move Group</p>
+            </div>
         </div>
-        <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Accounting</h3>
-        <p class="text-[15px] leading-tight text-gray-600">Accurate financial records for informed business decisions.</p>
-    </div>
 
-    <div class="bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 transition-all cursor-pointer border border-gray-100 fade-in-left stagger-13">
-        <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
-            <i class="fa-solid fa-book text-2xl"></i>
-        </div>
-        <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Bookkeeping</h3>
-        <p class="text-[15px] leading-tight text-gray-600">Organized, up-to-date books providing a clear view of finances.</p>
-    </div>
-
-    <div class="bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 transition-all cursor-pointer border border-gray-100 fade-in-left stagger-14">
-        <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
-            <i class="fa-solid fa-users-gear text-2xl"></i>
-        </div>
-        <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Payroll</h3>
-        <p class="text-[15px] leading-tight text-gray-600">Smooth and compliant payroll processing for teams.</p>
-    </div>
-
-    <div class="bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 transition-all cursor-pointer border border-gray-100 fade-in-left stagger-15">
-        <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
-            <i class="fa-solid fa-building-columns text-2xl"></i>
-        </div>
-        <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Corporate Tax</h3>
-        <p class="text-[15px] leading-tight text-gray-600">Expert corporate tax guidance to minimize liabilities.</p>
-    </div>
-
-    <div class="bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 transition-all cursor-pointer border border-gray-100 fade-in-right stagger-16">
-        <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
-            <i class="fa-solid fa-briefcase text-2xl"></i>
-        </div>
-        <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Entity Setup</h3>
-        <p class="text-[15px] leading-tight text-gray-600">Setting up the right business structure for success.</p>
-    </div>
-
-    <div class="bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 transition-all cursor-pointer border border-gray-100 fade-in-right stagger-17">
-        <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
-            <i class="fa-solid fa-gears text-2xl"></i>
-        </div>
-        <h3 class="font-bold text-xl mb-3 text-[#1e264f]">System Setup</h3>
-        <p class="text-[15px] leading-tight text-gray-600">Tailored accounting systems streamlining workflow.</p>
-    </div>
-
-    <div class="bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 transition-all cursor-pointer border border-gray-100 fade-in-right stagger-18">
-        <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
-            <i class="fa-solid fa-file-invoice-dollar text-2xl"></i>
-        </div>
-        <h3 class="font-bold text-xl mb-3 text-[#1e264f]">Personal Tax</h3>
-        <p class="text-[15px] leading-tight text-gray-600">Reliable personal tax filing ensuring accuracy.</p>
-    </div>
-
-    <div class="bg-white p-8 rounded-[64px] min-h-[260px] flex flex-col items-start shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 transition-all cursor-pointer border border-gray-100 fade-in-right stagger-19">
-        <div class="mb-5 w-14 h-14 bg-green-100 text-[#2d7a2d] rounded-full flex items-center justify-center shrink-0">
-            <i class="fa-solid fa-percent text-2xl"></i>
-        </div>
-        <h3 class="font-bold text-xl mb-3 text-[#1e264f]">GST/HST Filing</h3>
-        <p class="text-[15px] leading-tight text-gray-600">Timely filing maintaining regulatory compliance.</p>
     </div>
 </div>
-</section>
 
-<!-- Clients Section -->
-<section class="bg-[#f9f7f0] w-full pt-24 pb-40 fade-in stagger-20">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16">
-        
-        <h2 class="ml-18 text-4xl md:text-6xl font-serif text-[#2d7a2d] mb-16 md:mb-24 lg:mb-28 text-center md:text-left leading-tight">
-            Clients & <br class="hidden md:block"> Industries
-        </h2>
-
-        <div class="ml-36 flex justify-center">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full max-w-[1300px]">
-                
-                <div class="group bg-[#86b691] px-4 pb-3 pt-8 flex flex-col items-center transition-all duration-300">
-                    <h3 class="text-white font-serif text-start h-12 text-xl flex items-center">Cleaning Companies</h3>
-                    <div class="w-full h-[176px] pt-4 aspect-auto overflow-hidden shadow-lg">
-                        <img src="assets/2.png" class="w-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    </div>
-                </div>
-
-                <div class="group bg-[#b2d3ba] px-4 pb-3 pt-8 flex flex-col items-center">
-                    <h3 class="text-[#2d7a2d] font-serif text-start leading-tight text-xl h-12 flex items-start">Property Management <br> Companies</h3>
-                    <div class="w-full h-[176px] pt-4 aspect-auto overflow-hidden shadow-lg">
-                        <img src="assets/4.png" class="w-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    </div>
-                </div>
-
-                <div class="group bg-[#f1fcf1] px-4 pb-3 pt-8 flex flex-col items-center border-y sm:border-y-0 sm:border-x border-gray-100">
-                    <h3 class="text-[#1e264f] font-serif text-start text-xl h-12 flex items-center">Real Estate Investors</h3>
-                    <div class="w-full h-[176px] pt-4 aspect-auto overflow-hidden shadow-lg">
-                        <img src="assets/5.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    </div>
-                </div>
-
-                <div class="group bg-white px-4 pb-3 pt-8 flex flex-col items-center">
-                    <h3 class="text-[#1e264f] font-serif text-xl text-start leading-tight h-12 flex items-center">Other Businesses Across <br> Various Industries</h3>
-                    <div class="w-full h-[176px] pt-4 aspect-auto overflow-hidden shadow-lg">
-                        <img src="assets/6.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Footers -->
-<footer class="bg-[#86b691] pt-16 pb-12 px-6 md:px-10 text-white w-full fade-in">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 mb-12 text-center sm:text-left">
-        <div class="flex items-center justify-center sm:justify-start">
-            <div class="w-36 h-36 rounded-lg flex items-center justify-center">
-                <img class="w-full h-full"src="assets/logo.png" alt="Logo">
-            </div>
-        </div>
-        <div>
-            <h4 class="font-bold text-xl mb-4 md:mb-6">Quick Links</h4>
-            <ul class="space-y-3 opacity-90">
-                <li><a href="index.html" class="hover:underline">Home</a></li>
-                <li><a href="about.html" class="hover:underline">About Us</a></li>
-                <li><a href="clients.html" class="hover:underline">Clients & Industries</a></li>
-                <li><a href="contacts.html" class="hover:underline">Contact</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-bold text-xl mb-4 md:mb-6">Important Links</h4>
-            <ul class="space-y-3 opacity-90">
-                <li><a href="#" class="hover:underline">Terms and Conditions</a></li>
-                <li><a href="#" class="hover:underline">Legal</a></li>
-                <li><a href="#" class="hover:underline">Business</a></li>
-                <li><a href="#" class="hover:underline">Partners</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-bold text-xl mb-4 md:mb-6">Let's Connect!</h4>
-            <p class="opacity-90">Connect with entrepreneurs, build your network, make great business.</p>
-        </div>
-    </div>
-</footer>
-
-<div class="bg-[#4a7c59] py-8 px-6 md:px-10 text-white w-full">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm opacity-90 space-y-2 md:space-y-0 text-center">
-        <p>Copyright © 2026 Right Move Group</p>
-        <p>Powered by Right Move Group</p>
-    </div>
-</div>
-
-<!-- Simple Mobile Menu Script -->
 <script>
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const navLinks = document.getElementById('nav-links');
+    function updatePageScale() {
+        const designWidth = 1440;
+        const container = document.getElementById('page-scale-container');
+        const desktop = document.getElementById('page-desktop');
 
-    mobileMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('hidden');
-        navLinks.classList.toggle('flex');
-    });
+        const viewportWidth = window.innerWidth;
+        const scale = Math.min(viewportWidth / designWidth, 1);
+
+        document.documentElement.style.setProperty('--page-scale', scale);
+
+        requestAnimationFrame(() => {
+            const scaledHeight = desktop.offsetHeight * scale;
+            container.style.height = scaledHeight + 'px';
+        });
+    }
+
+    window.addEventListener('load', updatePageScale);
+    window.addEventListener('resize', updatePageScale);
 
     // Scroll-triggered fade-in animation
     const observerOptions = {
@@ -237,13 +366,12 @@
         });
     }, observerOptions);
 
-    // Observe all fade-in elements
     document.addEventListener('DOMContentLoaded', () => {
         const fadeElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
-        fadeElements.forEach(element => {
-            observer.observe(element);
-        });
+        fadeElements.forEach(element => observer.observe(element));
+        updatePageScale();
     });
 </script>
+
 </body>
 </html>
