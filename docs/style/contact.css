@@ -22,11 +22,12 @@ html, body {
 }
 
 .contact-main-section {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 200px ;
+    padding: 80px 60px;
+    min-height: 700px;
 }
 
 .contact-main-inner {
@@ -34,6 +35,10 @@ html, body {
     max-width: 1152px;
     margin: 0 auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
 }
 
 .contact-card {

@@ -6,9 +6,13 @@ function updatePageScale() {
 
     const designWidth = 1440;
     const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
     const scale = Math.min(viewportWidth / designWidth, 1);
 
     document.documentElement.style.setProperty('--page-scale', scale);
+
+    // Make the unscaled canvas tall enough so the scaled page still fills the phone screen
+    desktop.style.minHeight = `${viewportHeight / scale}px`;
 
     requestAnimationFrame(() => {
         const scaledHeight = desktop.offsetHeight * scale;

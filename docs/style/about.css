@@ -17,7 +17,7 @@ html, body {
 }
 
 .hero-section {
-    height: 600px;
+    height: 700px;
     flex-shrink: 0;
 }
 
@@ -28,8 +28,8 @@ html, body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    padding: 200px;
-    min-height: 650px;
+    padding: 70px 40px 90px;
+    min-height: 700px;
     background: #ffffff;
 }
 
@@ -43,6 +43,7 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-height: 100%;
 }
 
 .about-content-stack {
